@@ -14,6 +14,7 @@ ContentLayout
   import { Plus } from '@strapi/icons';
 import { Illo } from '../../components/Illo';
 import TodoModal from '../../components/TodoModal';
+import TodoCount from '../../components/TodoCount';
 
 
 const HomePage = () => {
@@ -48,7 +49,9 @@ const HomePage = () => {
           }
           /> 
           ): (
-             <p>count and Table</p>
+            <>
+            <TodoCount count={todoData.length}/>
+            </>
         )
         }
       </ContentLayout>
