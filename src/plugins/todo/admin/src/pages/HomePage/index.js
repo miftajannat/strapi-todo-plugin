@@ -15,6 +15,7 @@ ContentLayout
 import { Illo } from '../../components/Illo';
 import TodoModal from '../../components/TodoModal';
 import TodoCount from '../../components/TodoCount';
+import TodoTable from '../../components/TodoTable';
 
 
 const HomePage = () => {
@@ -23,7 +24,20 @@ const HomePage = () => {
 
   async function addTodo (data) {
     setTodoData ([ ...todoData, {...data, id: nanoid(), isDone: false}]);
-  }``
+  }
+
+  async function toggleTodo (data) {
+    alert('Add toggle Todo in API');
+  }
+
+  async function deleteTodo (data) {
+    alert('Add delete Todo in API');
+  }
+
+  async function editTodo (data) {
+    alert('Add edit Todo in API');
+  }
+
 
   return (
     <Layout>
@@ -51,6 +65,13 @@ const HomePage = () => {
           ): (
             <>
             <TodoCount count={todoData.length}/>
+            <TodoTable
+            todoData={todoData}
+            setShowModal={setShowModal}
+            toggleTodo={toggleTodo}
+            deleteTodo={deleteTodo}
+            editTodo={editTodo}
+            />
             </>
         )
         }
