@@ -1,6 +1,9 @@
 
 
-import React, {memo, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
+import {LoadingIndicatorPage} from '@strapi/helper-plugin';
+import todoRequests from '../../api/todo';
+
 import { nanoid } from 'nanoid';
 // import PropTypes from 'prop-types';
 import pluginId from '../../pluginId';
@@ -21,6 +24,21 @@ import TodoTable from '../../components/TodoTable';
 const HomePage = () => {
   const [todoData, setTodoData] = React.useState([  ]);
   const [showModal, setShowModal] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  const fetchTodoData = async () => {
+    if (isLoading === false) setIsLoading(true);
+    const todo = await todoRequests.getAllTodos();
+    setTodoData(todo);
+    setIsLoading(false);
+  };
+
+  
+useEffect(async () => {
+  await fetchTodoData();
+
+}, [])
+
 
   async function addTodo (data) {
     setTodoData ([ ...todoData, {...data, id: nanoid(), isDone: false}]);
@@ -38,7 +56,7 @@ const HomePage = () => {
     alert('Add edit Todo in API');
   }
 
-
+if (isLoading) return<LoadingIndicatorPage />;
   return (
     <Layout>
       <BaseHeaderLayout
